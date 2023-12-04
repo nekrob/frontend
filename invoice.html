@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html >
+<head>
+ 
+  <style>
+    body {
+        background-image: url('inv.jpeg');
+        background-color:bisque ;
+      font-family: 'Arial', sans-serif;
+      margin: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+    input {
+      width: 60px;
+    }
+
+    button {
+      padding: 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    #total {
+      font-weight: bold;
+      font-size: 18px;
+    }
+  </style>
+  <title> Invoice Calculator</title>
+</head>
+<body>
+
+  <marquee direction ="left" behaviour = "alternate"><h2>Invoice Calculator</h2></marquee>>
+
+  <table id="invoiceTable">
+    <thead>
+      <tr>
+        <th>Item</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+    <tbody>
+
+    </tbody>
+  </table>
+
+  <button onclick="addItem()">Add Item</button>
+
+  <p id="total">Total: $0.00</p>
+
+  <script>
+    function addItem() {
+      var table = document.getElementById("invoiceTable").getElementsByTagName('tbody')[0];
+      var newRow = table.insertRow(table.rows.length);
+
+      var cell1 = newRow.insertCell(0);
+      var cell2 = newRow.insertCell(1);
+      var cell3 = newRow.insertCell(2);
+      var cell4 = newRow.insertCell(3);
+
+      cell1.innerHTML = '<input type="text" placeholder="Item">';
+      cell2.innerHTML = '<input type="number" placeholder="Quantity">';
+      cell3.innerHTML = '<input type="number" placeholder="Price">';
+      cell4.innerHTML = '<span class="total">0.00</span>';
+    }
+
+    function updateTotal() {
+      var table = document.getElementById("invoiceTable");
+      var rows = table.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+      var total = 0;
+
+      for (var i = 0; i < rows.length; i++) {
+        var quantity = parseInt(rows[i].cells[1].getElementsByTagName('input')[0].value, 10) || 0;
+        var price = parseFloat(rows[i].cells[2].getElementsByTagName('input')[0].value) || 0;
+        var rowTotal = quantity * price;
+        total += rowTotal;
+        rows[i].cells[3].getElementsByTagName('span')[0].innerText = '₹' + rowTotal.toFixed(2);
+      }
+
+      document.getElementById('total').innerText = 'Total: ₹' + total.toFixed(2);
+    }
+
+    
+    document.getElementById('invoiceTable').addEventListener('input', updateTotal);
+  </script>
+
+</body>
+</html>

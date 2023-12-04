@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html >
+<head >
+    <style>
+        body {
+          background-image: url('xat.png');
+          background-color:bisque ;
+ 
+        }
+        </style>
+  <title>Tax Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    input {
+      margin-bottom: 10px;
+    }
+
+    button {
+      padding: 8px 15px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    #result {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Tax Calculator</h2>
+
+  <label for="annualSalary">Annual Salary:</label>
+  <input type="number" id="annualSalary" placeholder="Enter annual salary">
+
+  <label for="cutoffSalary">Cutoff Salary:</label>
+  <input type="number" id="cutoffSalary" placeholder="Enter cutoff salary">
+
+  <label for="taxPercent">Tax Percentage:</label>
+  <input type="number" id="taxPercent" placeholder="Enter tax percentage">
+
+  <button onclick="calculateTax()">Calculate Tax</button>
+
+  <div id="result"></div>
+
+  <script>
+    function calculateTax() {
+      var annualSalary = parseFloat(document.getElementById('annualSalary').value);
+      var cutoffSalary = parseFloat(document.getElementById('cutoffSalary').value);
+      var taxPercent = parseFloat(document.getElementById('taxPercent').value);
+
+      if (isNaN(annualSalary) || isNaN(cutoffSalary) || isNaN(taxPercent)) {
+        alert("Please enter valid numbers for all fields.");
+        return;
+      }
+
+      if (annualSalary <= cutoffSalary) {
+        var taxedSalary = annualSalary;
+        var taxAmount = 0;
+      } else {
+        var taxableAmount = annualSalary - cutoffSalary;
+        var taxAmount = (taxableAmount * taxPercent) / 100;
+        var taxedSalary = annualSalary - taxAmount;
+      }
+
+      var resultText = "Tax Amount: ₹" + taxAmount.toFixed(2) + "<br>";
+      resultText += "Salary after Tax and Cut-off: ₹" + taxedSalary.toFixed(2);
+
+      document.getElementById('result').innerHTML = resultText;
+    }
+  </script>
+
+</body>
+</html>
